@@ -2,7 +2,7 @@
 from . import db, login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
-# from datetime import datetime
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
     def save_user(self):
         db.session.add(self)
         db.session.commit()
-        
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -41,31 +41,24 @@ class Blogs(db.Model):
     __tablename__ = 'blogs'
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String())
-    category = db.Column(db.String())
     pitch_content = db.Column(db.String())
-    upvotes = db.Column(db.Boolean, nullable=False)
-    downvotes = db.Column(db.Boolean, nullable=False)
+    date = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comments = db.relationship("Comments", backref ='blog', lazy = "dynamic")
     
-    def save_pitches(self):
+    def save_blogs(self):
             db.session.add(self)
             db.session.commit()
             
-    def __repr__(self):
-        if self.upvote == True:
-            vote = 'Up'
-        else:
-            vote = 'Down'
-        return '<Vote - {}, from {} for {}>'.format(vote, self.user.username, self.post.header)
-
-
     @classmethod
-    def get_blogs(cls,category):
-            blogs = Blogs.query.filter_by(category=category).all()
+    def get_blogs(cls):
+            blogs = Blogs.query.filter_by().all()
             return blogs
+    
+    def __repr__(self):
+        return f'User{self.username}'
 
-
+g
 
 class Comments(db.Model):
     __tablename__ = 'comments'
@@ -84,7 +77,27 @@ class Comments(db.Model):
         return comments
     
 
+class Quote:
+    def __init__(self,author,quote):
+        self.quote = quote
+        self.author = author
+        
 
+class Subscribe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255),unique = True,index = True)
+
+    def save_subscriber(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_subscriber(cls, id):
+        blogs= Subscribe.query.filter_by(id=id).all()
+        return blogs
+
+    def __repr__(self):
+        return f'User {self.username}'
 
 
 

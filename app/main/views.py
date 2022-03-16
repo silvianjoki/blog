@@ -1,9 +1,10 @@
+from ast import Sub
 from crypt import methods
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required, current_user, login_user, logout_user
 from ..models import User, Blogs, Comments
-from .forms import CommentForm, BlogsForm, UpdateProfile
+from .forms import CommentForm, BlogsForm, SubscriberForm, UpdateProfile
 from .. import db,photos
 
 
@@ -15,7 +16,22 @@ def index():
     return render_template('index.html', blogs=blogs, comments=comments)
 
 
+@main.route('/')
+def index():
+    
+    quote= get_random_quote()
+    subscriber_form = SubscriberForm()
+    if subscriber_form.validate_on_submit():
+        subscribe = subscriber_form.email.data
+        
+        mail_message ('Thanks and welcome to blogga,''email/subscribe', subscribe.email, user=subscribe)
+        
 
+        
+        return redirect(url_for('.index'))
+    
+    return render_template('index.html', subscriber_form=subscriber_form, quote=quote)
+        
 
 @main.route('/blog/',methods=['GET','POST'])
 @login_required
@@ -23,10 +39,9 @@ def blogs_form():
     blogs_form = BlogsForm()
     if blogs_form.validate_on_submit():
         title=blogs_form.title.data
-        category=blogs_form.category.data
         blog_content=blogs_form.blog_content.data
         
-        new_blogs = Blogs(title=title, blog_content=blog_content, category=category,user_id=current_user._get_current_object().id)
+        new_blogs = Blogs(title=title, blog_content=blog_content, user_id=current_user._get_current_object().id)
         new_blogs.save_pitches()
         return redirect(url_for('.index',))
     
@@ -36,22 +51,19 @@ def blogs_form():
         
         
 
-@main.route('/comment/<int:blog_id>', methods = ['GET', 'POST'])
+@main.route('/comment/', methods = ['GET', 'POST'])
 @login_required
-def comment(blog_id):
+def comment():
     
     
-    comment_form = CommentForm() 
-    blogs=Blogs.query.get(blog_id)
-    comments= Comments.get_comments(blog_id)
-    user = User.query.filter_by(id=id)
+    comment_form = CommentForm()
     if comment_form.validate_on_submit():
         comments= comment_form.comment.data
         
-        new_comment=Comments(blog_id=blog_id, comments=comments, user=user)
-        new_comment.save_comments()
+        comment=Comments(comments=comments)
+        comment.save_comments()
         
-    return render_template('comment.html', comment_form=comment_form, blogs=blogs,user_id=current_user._get_current_object().id)
+    return render_template('comment.html', comment_form=comment_form,user_id=current_user._get_current_object().id)
 
 
 
