@@ -58,7 +58,6 @@ class Blogs(db.Model):
     def __repr__(self):
         return f'User{self.username}'
 
-g
 
 class Comments(db.Model):
     __tablename__ = 'comments'

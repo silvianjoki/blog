@@ -6,6 +6,9 @@ from flask_login import login_required, current_user, login_user, logout_user
 from ..models import User, Blogs, Comments
 from .forms import CommentForm, BlogsForm, SubscriberForm, UpdateProfile
 from .. import db,photos
+from app.requests import get_random_quote
+from ..email import mail_message
+
 
 
 @main.route('/')
