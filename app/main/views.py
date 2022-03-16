@@ -2,56 +2,56 @@ from crypt import methods
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required, current_user, login_user, logout_user
-from ..models import User, Pitches, Comments
-from .forms import CommentForm, PitchesForm, UpdateProfile
+from ..models import User, Blogs, Comments
+from .forms import CommentForm, BlogsForm, UpdateProfile
 from .. import db,photos
 
 
 @main.route('/')
 def index():
-    pitches = Pitches.query.all()
+    blogs = Blogs.query.all()
     comments = Comments.query.all()
     
-    return render_template('index.html', pitches=pitches, comments=comments)
+    return render_template('index.html', blogs=blogs, comments=comments)
 
 
 
 
-@main.route('/pitch/',methods=['GET','POST'])
+@main.route('/blog/',methods=['GET','POST'])
 @login_required
-def pitches_form():
-    pitches_form = PitchesForm()
-    if pitches_form.validate_on_submit():
-        title=pitches_form.title.data
-        category=pitches_form.category.data
-        pitch_content=pitches_form.pitch_content.data
+def blogs_form():
+    blogs_form = BlogsForm()
+    if blogs_form.validate_on_submit():
+        title=blogs_form.title.data
+        category=blogs_form.category.data
+        blog_content=blogs_form.blog_content.data
         
-        new_pitches = Pitches(title=title, pitch_content=pitch_content, category=category,user_id=current_user._get_current_object().id)
-        new_pitches.save_pitches()
+        new_blogs = Blogs(title=title, blog_content=blog_content, category=category,user_id=current_user._get_current_object().id)
+        new_blogs.save_pitches()
         return redirect(url_for('.index',))
     
     
     
-    return render_template ('pitch.html', pitches_form=pitches_form)
+    return render_template ('blog.html', blogs_form=blogs_form)
         
         
 
-@main.route('/comment/<int:pitch_id>', methods = ['GET', 'POST'])
+@main.route('/comment/<int:blog_id>', methods = ['GET', 'POST'])
 @login_required
-def comment(pitch_id):
+def comment(blog_id):
     
     
     comment_form = CommentForm() 
-    pitches=Pitches.query.get(pitch_id)
-    comments= Comments.get_comments(pitch_id)
+    blogs=Blogs.query.get(blog_id)
+    comments= Comments.get_comments(blog_id)
     user = User.query.filter_by(id=id)
     if comment_form.validate_on_submit():
         comments= comment_form.comment.data
         
-        new_comment=Comments(pitch_id=pitch_id, comments=comments, user=user)
+        new_comment=Comments(blog_id=blog_id, comments=comments, user=user)
         new_comment.save_comments()
         
-    return render_template('comment.html', comment_form=comment_form, pitches=pitches,user_id=current_user._get_current_object().id)
+    return render_template('comment.html', comment_form=comment_form, blogs=blogs,user_id=current_user._get_current_object().id)
 
 
 

@@ -17,7 +17,7 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
     comments = db.relationship('Comments', backref='author', lazy='dynamic')
-    pitches = db.relationship('Pitches',backref = 'pitcher',lazy = "dynamic")
+    blogs = db.relationship('Blogs',backref = 'blogger',lazy = "dynamic")
 
     def save_user(self):
         db.session.add(self)
@@ -37,8 +37,8 @@ class User(UserMixin,db.Model):
     def __repr__(self): 
         return f'USER {self.username}'
 
-class Pitches(db.Model):
-    __tablename__ = 'pitches'
+class Blogs(db.Model):
+    __tablename__ = 'blogs'
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String())
     category = db.Column(db.String())
@@ -46,7 +46,7 @@ class Pitches(db.Model):
     upvotes = db.Column(db.Boolean, nullable=False)
     downvotes = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    comments = db.relationship("Comments", backref ='pitch', lazy = "dynamic")
+    comments = db.relationship("Comments", backref ='blog', lazy = "dynamic")
     
     def save_pitches(self):
             db.session.add(self)
@@ -61,9 +61,9 @@ class Pitches(db.Model):
 
 
     @classmethod
-    def get_pitches(cls,category):
-            pitches = Pitches.query.filter_by(category=category).all()
-            return pitches
+    def get_blogs(cls,category):
+            blogs = Blogs.query.filter_by(category=category).all()
+            return blogs
 
 
 
@@ -71,7 +71,7 @@ class Comments(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer,primary_key = True)
     comment = db.Column (db.String())
-    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     # posted = db.Column(db.DateTime,default=datetime.utcnow)
     def save_comments(self):
@@ -79,8 +79,8 @@ class Comments(db.Model):
         db.session.commit()
         
     @classmethod
-    def get_comments(cls,pitch_id):
-        comments = Comments.query.filter_by(pitch_id=pitch_id).all()
+    def get_comments(cls,blog_id):
+        comments = Comments.query.filter_by(blog_id=blog_id).all()
         return comments
     
 

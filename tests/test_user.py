@@ -1,7 +1,7 @@
 import unittest
 
 from sqlalchemy import union
-from app.models import Comments, Pitches, User
+from app.models import Blogs, Comments, User
 
 class UserModelTest(unittest.TestCase):
 
@@ -21,16 +21,16 @@ class UserModelTest(unittest.TestCase):
         
 
 
-class TestPitches(unittest.TestCase):
+class TestBlogs(unittest.TestCase):
     def setUp(self):
-        self.new_pitches=Pitches(pitches='something amazing is cooking')
+        self.new_blogs=Blogs(blogs='something amazing is cooking')
         
     def tearDown(self):
-        Pitches.query.delete()
+        Blogs.query.delete()
         
-    def test_save_pitches(self):
-        self.new_pitches.save_pitches()
-        self.assertTrue(len(Pitches.query.all())>0)
+    def test_save_blogs(self):
+        self.new_pitches.save_blogs()
+        self.assertTrue(len(Blogs.query.all())>0)
 
 
 
