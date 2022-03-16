@@ -1,5 +1,5 @@
-from ast import Sub
-from crypt import methods
+
+import datetime
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required, current_user, login_user, logout_user
@@ -11,12 +11,13 @@ from ..email import mail_message
 
 
 
+
 @main.route('/home/')
-def index():
+def home():
     blogs = Blogs.query.all()
     comments = Comments.query.all()
     
-    return render_template('index.html', blogs=blogs, comments=comments)
+    return render_template('home.html', blogs=blogs, comments=comments)
 
 
 @main.route('/')
@@ -43,12 +44,11 @@ def blogs_form():
     if blogs_form.validate_on_submit():
         title=blogs_form.title.data
         blog_content=blogs_form.blog_content.data
+        date=blogs_form.date.data
         
-        new_blogs = Blogs(title=title, blog_content=blog_content, user_id=current_user._get_current_object().id)
-        new_blogs.save_pitches()
+        new_blogs = Blogs(title=title, blog_content=blog_content, date=date, user_id=current_user._get_current_object().id)
+        new_blogs.save_blogs()
         return redirect(url_for('.index',))
-    
-    
     
     return render_template ('blog.html', blogs_form=blogs_form)
         

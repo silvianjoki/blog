@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <h3 style="text-align: center; color: rgb(4, 78, 100); padding-top: 4%; font-family:'The Nautigal', sans-serif;">Subscribe here! </h3>
+            <h3 style="text-align: center; color: rgb(4, 78, 100); padding-top: 4%; font-family:'The Dongle',cursive;font-weight: bolder;">Subscribe here! </h3>
             {{wtf.quick_form(subscriber_form)}}
         </div>
         <div class="col-6">
@@ -26,6 +26,7 @@
             {% for quote in quotes %}
             <h4>{{quote.quote}}</h4>
             <p>by:{{quote.author}}</p>
+            {% endfor %}
 
         </div>
     </div>
