@@ -1,8 +1,9 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Blogga</a> 
+        <a class="navbar-brand" href="/home/">Blogga</a> 
         {% if current_user.is_authenticated %}
         <li style="color:blue;padding:15px;">{{current_user.username}}</li>
+        <a class="home" href="/home">Home</a>
         <a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a>
         <a href="{{url_for('auth.logout')}}">Sign out</a>
         {% else %}

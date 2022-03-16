@@ -20,7 +20,7 @@ class UpdateBog(FlaskForm):
     
 class BlogsForm(FlaskForm):
     title= StringField('Title:', validators=[InputRequired()])
-    blog_content=TextAreaField('Share your blog', validators=[InputRequired()])
+    content=TextAreaField('Share your blog', validators=[InputRequired()])
     date=DateField('Posted', validators=[InputRequired()])
     submit= SubmitField('Submit')
     

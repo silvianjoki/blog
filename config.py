@@ -8,20 +8,20 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = '10silvianjoki@gmail.com'
     MAIL_PASSWORD = '219972silvia'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogga'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogy'
     SECRET_KEY='essentialism'
 
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogga'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogy'
 
 class ProdConfig(Config):
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogga'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogy'
     pass
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogga'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://silvianjoki:password@localhost/blogy'
     DEBUG = True
 
 config_options = {

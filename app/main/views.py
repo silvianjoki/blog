@@ -43,12 +43,15 @@ def blogs_form():
     blogs_form = BlogsForm()
     if blogs_form.validate_on_submit():
         title=blogs_form.title.data
-        blog_content=blogs_form.blog_content.data
+        content=blogs_form.content.data
         date=blogs_form.date.data
         
-        new_blogs = Blogs(title=title, blog_content=blog_content, date=date, user_id=current_user._get_current_object().id)
+        new_blogs = Blogs(title=title, content=content, date=date, user_id=current_user._get_current_object().id)
+        # db.session.add(new_blogs)
+        # db.session.commit()
+        
         new_blogs.save_blogs()
-        return redirect(url_for('.index',))
+        return redirect(url_for('.home',))
     
     return render_template ('blog.html', blogs_form=blogs_form)
         
