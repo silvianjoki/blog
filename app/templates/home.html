@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf%}
+<!-- {% import 'bootstrap/wtf.html' as wtf%} -->
 
 {% block styles %}
     {{ super() }}
@@ -8,22 +8,28 @@
 
 {% block content %}
 
+
+
 <div class="container">
     <div class="row">
+        <h3 style="text-align: center; font-family: 'The Dongle', cursive; padding-top: 4%; color: darkslategrey;"> Review some amazing blogs here</h3>
         {% for blog in blogs %}
         <div class="col-sm-6 col-md-4">
             <div class="blogger">
                 <div class="content">
                     <h3> {{blog.title}}</h3>
-                    <p>Blog: {{blog.blog_content}}</p>
+                    <h5>Blog: {{blog.content}}</h5>
+                    <p> Shared by: {{ current_user.username}}</p>
+                    <p> shared on: {{ blog.date}}</p>
                     <button class="btn btn-sm btn-danger"  (click)="deleteBlog(true)"> {{blog.delete}} <i class="bi-trash" id="delete"></i></button>
+                    <span>
                     <p><a style="background-color: black; color: white;" href=" {{url_for('main.comment',comment = comment)}} " class="btn btn-primary" role="button">Comment</a></p>
-                    <p> <a style="background-color: black;" href="/comment" class="btn btn-primary">Comment</a></p>
-                    
+                </span>
                 </div>
             </div>
         </div> {% endfor %}
     </div>
 </div>
+
 
 {% endblock%}
