@@ -11,7 +11,7 @@ from ..email import mail_message
 
 
 
-@main.route('/')
+@main.route('/home/')
 def index():
     blogs = Blogs.query.all()
     comments = Comments.query.all()

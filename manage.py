@@ -4,13 +4,13 @@ from flask_script import Manager, Server
 from  flask_migrate import Migrate, MigrateCommand
 
 # create app instance
-app = create_app('production')
+app = create_app('development')
 
 manager = Manager(app)
 manager.add_command('server', Server)
 
 
-# manager.add_command('db',MigrateCommand)
+
 
 
 migrate = Migrate(app,db)

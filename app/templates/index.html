@@ -30,24 +30,5 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        {% for blog in blogs %}
 
-        <div class="col-sm-6 col-md-4">
-            <div class="blogger">
-                <div class="content">
-                    <h3> {{blog.title}}</h3>
-                    <p>Blog: {{blog.blog_content}}</p>
-                    <button class="btn btn-sm like" (click)="upvote()" > {{blog.likes}} <i class="bi-hand-thumbs-up-fill" id="like"></i></button>
-                    <button class="btn btn-sm hate" (click)="downvote()" >  {{blog.dislikes}} <i class="bi-hand-thumbs-down-fill" id="dislike"></i></button>
-                    <button class="btn btn-sm btn-danger"  (click)="deleteBlog(true)"> {{blog.delete}} <i class="bi-trash" id="delete"></i></button>
-                    <p><a style="background-color: black; color: white;" href=" {{url_for('main.comment',comment = comment)}} " class="btn btn-primary" role="button">Comment</a></p>
-                    <!-- <p> <a style="background-color: black;" href="/comment" class="btn btn-primary">Comment</a></p> -->
-                    
-                </div>
-            </div>
-        </div> {% endfor %}
-    </div>
-</div>
 {% endblock %}
