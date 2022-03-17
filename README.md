@@ -1,16 +1,16 @@
 # Pitch
 
-### An application that lets users add new pitches on different categories and review the categories upon signing up. 
+### An application that lets users add new blogs and review the blogs upon signing up. 
 
 by Silvia Njoki
 
 ## Description
 
-The applications uses a database to add new users to the app upon signup. It later gives the functionalities of a pitch website for individuals to share pitches on different topics. 
+The applications uses a database to add new users to the app upon signup. It later gives the functionalities of a pitch website for individuals to share blogs on different topics. 
 
-Upon signup, one can review new pitches and edit their profile information. 
+Upon signup, one can review new blogs and edit their profile information. 
 
-Aside from this, you will also view the pitches made by other individuals. 
+Aside from this, you will also view the blogs made by other individuals. 
 
 ## Installation guide
 To run this installation install the following:
