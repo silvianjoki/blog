@@ -21,7 +21,7 @@ To run this installation install the following:
 * PSQL Postgres
 
 Clone the repository
-git clone https://github.com/silvianjoki/newsproject.git
+git clone https://github.com/silvianjoki/blogs.git
 cd newsproject
 open your code editor 
 
